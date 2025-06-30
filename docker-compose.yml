@@ -3,13 +3,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-    working_dir: /app/frontend
     ports:
       - "5173:5173"
     volumes:
       - .:/app
       - /app/frontend/node_modules
-    command: npm run dev
     environment:
       - NODE_ENV=development
 
@@ -17,13 +15,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
-    working_dir: /app/backend
     ports:
       - "3000:3000"
     volumes:
       - .:/app
       - /app/backend/node_modules
-    command: npm run dev
     environment:
       - NODE_ENV=development
 

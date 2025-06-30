@@ -1,56 +1,10 @@
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Footer, Header } from "@/components";
-import Paint from "./Paint";
-
-function hexToTailwindColor(hex: string): string {
-  const colorMap: { [key: string]: string } = {
-    "#ff0000": "bg-red-500",
-    "#00ffc3": "bg-teal-400",
-    "#0000ff": "bg-blue-700",
-    "#ff00ff": "bg-pink-500",
-    "#00ffff": "bg-cyan-200",
-    "#ffa500": "bg-orange-500",
-    "#db1ddb": "bg-purple-500",
-    "#008000": "bg-green-600",
-    "#ffff00": "bg-yellow-500",
-    "#ff1493": "bg-pink-600",
-  };
-
-  return colorMap[hex];
-}
 
 export function Home(): ReactElement {
   const navigate = useNavigate();
+  const [token, setToken] = useState("")
 
-  const blobColors = [
-    "#ff0000", // red
-    "#00ffc3", // teal
-    "#0000ff", // blue
-    "#ff00ff", // pink
-    "#00ffff", // cyan
-    "#ffa500", // orange
-    "#db1ddb", // purple
-    "#008000", // green
-    "#ffff00", // yellow
-    "#ff1493", // deep pink
-  ];
-
-  const cursorColor = blobColors[Math.floor(Math.random() * blobColors.length)];
-  let paintColor = blobColors[Math.floor(Math.random() * blobColors.length)];
-
-  // Ensure cursorColor and paintColor are not the same
-  while (paintColor === cursorColor) {
-    paintColor = blobColors[Math.floor(Math.random() * blobColors.length)];
-  }
-
-  console.log("cursorColor", cursorColor);
-  console.log("paintColor", paintColor);
-  console.log(
-    "hexToTailwindColor(cursorColor)",
-    hexToTailwindColor(cursorColor),
-  );
-  console.log("hexToTailwindColor(paintColor)", hexToTailwindColor(paintColor));
   const handleLogin = () => {
     navigate("/rubric-builder");
   };
@@ -59,51 +13,96 @@ export function Home(): ReactElement {
     navigate("/signup");
   };
 
+  const handleTokenSubmit = () => {
+    navigate("/rubric-builder")
+  }
+
+  const isSubmitEnabled = true
+
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-gray-800 via-gray-900 to-gray-700 flex flex-col justify-between">
-      <Header />
-
-      {/* Logo */}
-      <Paint
-        color={paintColor}
-        cursorBallColor={cursorColor}
-        cursorBallSize={2}
-        ballCount={15}
-        animationSize={30}
-        enableMouseInteraction={true}
-        hoverSmoothness={0.05}
-        clumpFactor={1}
-        speed={0.3}
-      />
+    <div className="p-6 h-screen w-full flex flex-col relative overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-20 w-80 h-80 bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-32 right-32 w-72 h-72 bg-gradient-to-r from-pink-200/30 to-orange-200/30 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/3 left-1/3 w-64 h-64 bg-gradient-to-r from-teal-200/30 to-cyan-200/30 rounded-full blur-3xl animate-pulse" style={{animationDelay: '4s'}}></div>
+      </div>
+      
+      <div className="absolute inset-0 bg-white/40 backdrop-blur-xl"></div>      
+      
       {/* Main Content Section */}
-      <div className="flex flex-col items-center justify-center text-white text-center -mt-44">
-        {/* Title */}
-        <h1 className="text-6xl font-bold mb-4 tracking-wide">
-          Welcome to Palette
-        </h1>
+      <div className="p-6 flex flex-col items-center justify-center text-center relative z-10 flex-1">
+        <div className="relative p-2 rounded-[36px] bg-gradient-to-br from-white/70 via-white/40 to-white/60 backdrop-blur-3xl shadow-2xl shadow-black/30 max-w-4xl mx-auto">
+          <div className="absolute inset-0 rounded-[36px] bg-gradient-to-tr from-white/50 via-transparent to-white/30 pointer-events-none"></div>
+          <div className="absolute inset-0 rounded-[36px] ring-2 ring-white/40 ring-inset shadow-inner shadow-white/20"></div>
 
-        {/* Subtitle */}
-        <p className="text-xl text-gray-400 mb-8 max-w-lg mt-1">
-          Improve the Canvas project grading experience with the perfect rubric.
-        </p>
+          <div className="relative p-1.5 rounded-[32px] bg-gradient-to-b from-white/60 via-white/30 to-white/50 backdrop-blur-2xl shadow-lg shadow-black/10">
+            <div className="absolute inset-0 rounded-[32px] bg-gradient-to-bl from-white/40 via-transparent to-white/25 pointer-events-none"></div>
+            <div className="absolute inset-0 rounded-[32px] ring-1 ring-white/50 ring-inset"></div>
+            
+            <div className="relative backdrop-blur-3xl bg-gradient-to-b bg-white/90 via-white/80 to-white/85 border-2 border-white/70 rounded-[28px] p-12 shadow-2xl shadow-black/10 ring-1 ring-black/5">
+               <div className="absolute inset-0 rounded-[28px] bg-gradient-to-b from-white/40 via-white/10 to-transparent pointer-events-none"></div>
+                <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-white/30 to-transparent rounded-l-[28px] pointer-events-none"></div>
+                <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-white/30 to-transparent rounded-r-[28px] pointer-events-none"></div>
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-white/60 to-transparent rounded-t-[28px]"></div>
+                <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-black/10 to-transparent rounded-b-[28px]"></div>
+              
+              <div className="relative mb-8">
+                <h1 className="text-6xl font-light mb-4 tracking-tight text-gray-900 drop-shadow-sm">
+                  Welcome to Palette
+                </h1>
+              </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-4">
-          <button
-            className={`${hexToTailwindColor(cursorColor)} text-white cursor-pointer rounded-lg px-8 py-3 font-semibold hover:opacity-80 transition duration-300 transform hover:scale-105`}
-            onClick={handleLogin}
-          >
-            Log In
-          </button>
-          <button
-            className="bg-gray-600 cursor-pointer text-white rounded-lg px-8 py-3 font-semibold hover:bg-gray-500 transition duration-300 transform hover:scale-105"
-            onClick={handleSignUp}
-          >
-            Sign Up
-          </button>
+              {/* Subtitle */}
+              <p className="text-xl text-gray-600 mb-8 max-w-lg mt-1 font-light">
+                Improve the Canvas project grading experience with the perfect rubric.
+              </p>
+{/* 
+              <div className="flex flex-col items-center gap-4 pt-2">
+                  <div className="relative">
+                    <label className="block text-base font-medium text-gray-600 mb-3 text-left">
+                      Enter Canvas Token
+                    </label>
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a6a6a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-key-round-icon lucide-key-round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg>
+                        </div>
+                        <input
+                          type="text"
+                          value={token}
+                          onChange={(e) => setToken(e.target.value)}
+                          placeholder="Paste your Canvas API token here..."
+                          className="w-80 pl-10 pr-4 py-3  border border-gray-500 rounded-2xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200"
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter' && isSubmitEnabled) {
+                              handleTokenSubmit();
+                            }
+                          }}
+                        />
+                      </div>
+                      
+                      <button
+                        onClick={handleTokenSubmit}
+                        disabled={!isSubmitEnabled}
+                        className={`relative overflow-hidden p-3 rounded-3xl font-medium transition-all duration-200 shadow-lg flex items-center justify-center ${
+                          isSubmitEnabled
+                            ? 'text-white bg-blue-500 cursor-pointer hover:bg-blue-600 active:bg-blue-700 hover:shadow-xl hover:shadow-blue-500/30 active:scale-95'
+                            : 'text-gray-400 bg-gray-200 cursor-not-allowed shadow-gray-200/25'
+                        }`}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        {isSubmitEnabled && (
+                          <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-50"></div>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+              </div>
+               */}
+            </div>
+          </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

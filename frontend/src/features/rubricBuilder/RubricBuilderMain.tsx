@@ -183,22 +183,22 @@ export function RubricBuilderMain({
     );
   };
 
-  return (
-    <div className="min-h-screen justify-between flex flex-col w-full  bg-gradient-to-b from-gray-900 to-gray-700 text-white font-sans">
-      <Header />
-      <div className={"px-48 flex justify-center"}>{renderContent()}</div>
-      {!isOfflineMode && renderOfflineToggleButton()}
+ return (
+  <div className="min-h-screen justify-between flex flex-col w-full bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 text-black">
+    <Header />
+    {/* Add left margin to account for sidebar width (320px = ml-80) */}
+    <div className="pl-80 px-48 flex justify-center">{renderContent()}</div>
+    {/* {!isOfflineMode && renderOfflineToggleButton()} */}
 
-      {/* Template Import Dialog */}
-      <Dialog
-        isOpen={templateInputActive}
-        onClose={() => setTemplateInputActive(false)}
-        title={"Import Template:"}
-      >
-        <TemplateUpload closeImportCard={() => setTemplateInputActive(false)} />
-      </Dialog>
-      {/* Sticky Footer with Gradient */}
-      <Footer />
-    </div>
-  );
+    {/* Template Import Dialog */}
+    <Dialog
+      isOpen={templateInputActive}
+      onClose={() => setTemplateInputActive(false)}
+      title={"Import Template:"}
+    >
+      <TemplateUpload closeImportCard={() => setTemplateInputActive(false)} />
+    </Dialog>
+    {/* Sticky Footer with Gradient */}
+  </div>
+);
 }

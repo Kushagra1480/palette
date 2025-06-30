@@ -8,7 +8,7 @@ export function MainPageTemplate({
   children?: ReactNode;
 }) {
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-b from-gray-900 to-gray-700 text-white font-sans">
+    <div className="h-screen flex flex-col font-sans">
       <Header />
       <main
         className={
@@ -17,7 +17,6 @@ export function MainPageTemplate({
       >
         {children}
       </main>
-      <Footer />
     </div>
   );
 }
