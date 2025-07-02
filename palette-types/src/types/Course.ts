@@ -2,6 +2,8 @@
  * Defines a Course object within the Palette context.
  */
 
+import { Assignment } from "./Assignment";
+
 export interface Course {
   id: number; // REQUIRED: Canvas-assigned unique identifier for the course
   name: string; // Course name to display in the Palette app
@@ -16,4 +18,5 @@ export interface Course {
     type: "teacher" | "ta"; // Enrollment type filtered to include only teachers or TAs
     enrollmentState: "active"; // Ensures only active enrollments are included
   }>;
+  assignments?: Assignment[]
 }

@@ -13,7 +13,7 @@ import { GroupedSubmissions } from "palette-types/dist/types/GroupedSubmissions"
  * @param canvasCourse - course information from the Canvas API.
  * @returns Valid courses entry to display or null to be filtered out.
  */
-export function mapToPaletteCourse(canvasCourse: CanvasCourse): Course | null {
+export function mapToPaletteCourse(canvasCourse: CanvasCourse, assignments?: Assignment[]): Course | null {
   const teacherOrTaEnrollments = canvasCourse.enrollments?.filter(
     (enrollment) =>
       (enrollment.type === "teacher" || enrollment.type === "ta") &&
@@ -38,6 +38,7 @@ export function mapToPaletteCourse(canvasCourse: CanvasCourse): Course | null {
       enrollmentState: enrollment.enrollment_state,
     })),
     courseFormat: canvasCourse.course_format,
+    assignments,
   } as Course;
 }
 

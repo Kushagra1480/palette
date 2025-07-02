@@ -4,7 +4,7 @@
 
 export interface Assignment {
   id: number;
-  name: string;
+    name: string;
   description: string;
   dueDate: string;
   pointsPossible: number;

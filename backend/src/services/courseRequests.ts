@@ -329,9 +329,20 @@ export const CoursesAPI = {
   async getCourses(): Promise<Course[]> {
     const { canvasCourses, courseFilters } = await getAllCourses();
 
-    return filterCourses(canvasCourses, courseFilters ?? [])
-      .map(mapToPaletteCourse)
+    // return filterCourses(canvasCourses, courseFilters ?? [])
+    //   .map(mapToPaletteCourse)
+    //   .filter((course): course is Course => course !== null);
+    const filteredCourses =  filterCourses(canvasCourses, courseFilters ?? [])
+      .map((course) => mapToPaletteCourse(course, undefined))
       .filter((course): course is Course => course !== null);
+    const coursesAndAssignments = await Promise.all(
+      filteredCourses.map(async (course) => {
+        const {canvasAssignments} = await getAllAssignments(course.id.toString())
+        const assignments = canvasAssignments.map(mapToPaletteAssignment)
+        return {...course, assignments}
+      })
+    )
+    return coursesAndAssignments
   },
 
   async getAssignments(courseId: string): Promise<Assignment[]> {
